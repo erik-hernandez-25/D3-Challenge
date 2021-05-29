@@ -15,7 +15,7 @@ function chartD3() {
     let height = svgHeight - margin.top - margin.bottom;
     chartD3
     
-    // Create the SVG wrapper, then append the svg group with its size attributes
+    // Create the SVG, and append the svg with its size attributes
     let svg = d3.select("#scatter")
         .append("svg")
         .attr("width", svgWidth)
@@ -28,7 +28,7 @@ function chartD3() {
     d3.csv("assets/data/data.csv")
         .then(function(riskData){
     
-    //Get data from data.csv file and turn strings into integers if needed
+    //Transform data from string to integers
         riskData.forEach(function(data) {
             data.age = +data.age;
             data.smokes = +data.smokes;
@@ -37,7 +37,7 @@ function chartD3() {
             data.abbr = data.abbr;
             data.income = +data.income;
         });
-    //Create scales for X and Y
+    //Create scales 
         let xLinearScale = d3.scaleLinear()
             .domain([8.5, d3.max(riskData, d => d.poverty)])
             .range([0, width]);
@@ -59,7 +59,7 @@ function chartD3() {
         chartGroup.append("g")
         .call(yAxis);
         
-    //Make Circles
+    //Set the chart bubbles / markers
         let circlesGroup = chartGroup.selectAll("circle")
             .data(riskData)
             .enter()
@@ -88,38 +88,8 @@ function chartD3() {
             console.log(riskData);
             
     
-        //circlesGroup
-        //.on('mouseover', function(data) {
-         // toolTip.text(d=> d.abbr);
-          
-       // })
-        // Step 3: Add an onmouseout event to make the tooltip invisible
-        //.on('mouseout', function() {
-         // toolTip.style('display', 'none');
-       // });
         
-    
-           
-    
-            
-             // var toolTip = d3
-              //.select('body')
-              //.append('div')
-              //.attr('class', 'tooltip');
-       
-            
-            
-           
-          
-            
-    
-        
-        
-             
-        
-    
-        
-            //Make labels for the healthrisk graph
+//Set labels
     
         chartGroup.append("text")
           .attr("transform", "rotate(-90)")
